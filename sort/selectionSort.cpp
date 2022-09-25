@@ -14,7 +14,7 @@ void selectionSort(int array[], int n){
     int i, j, min_index;
 
     for(i=0; i<n; i++){
-        min_index = i;
+        min_index = i; // 정렬되지 않은 데이터의 제일 앞 index
         for(j=i+1; j<n; j++){
             countCmpOps++;
             if(array[j] < array[min_index]){
