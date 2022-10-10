@@ -3,8 +3,8 @@
 using namespace std;
 
 int find_mid_max(int arr[], int left, int mid, int right){
-    int left_sum = -100000;
-    int right_sum = -100000;
+    int left_sum = -1; 
+    int right_sum = -1;
 
     int sum = 0;
     for(int i=mid; i>=left; i--){
@@ -20,12 +20,12 @@ int find_mid_max(int arr[], int left, int mid, int right){
     return left_sum + right_sum;
 }
 
-int MCSS(int arr[], int left, int right){
+int maxSubsequenceSum(int arr[], int left, int right){
     if(left == right) return arr[left];
 
     int mid = (left + right)/2;
-    int left_sum = MCSS(arr, left, mid);
-    int right_sum = MCSS(arr, mid+1, right);
+    int left_sum = maxSubsequenceSum(arr, left, mid);
+    int right_sum = maxSubsequenceSum(arr, mid+1, right);
     int mid_sum = find_mid_max(arr, left, mid, right);
 
     int max_r = max(left_sum, right_sum);
@@ -46,7 +46,7 @@ int main(){
         for(int j=0; j<n; j++){
             cin >> arr[j];
         }
-        int answer = MCSS(arr, 0, n-1);
+        int answer = maxSubsequenceSum(arr, 0, n-1);
         if(answer < 0) answer = 0;
         cout << answer << '\n';
     }
