@@ -10,6 +10,7 @@ void swap(int* a, int* b){
     *b = tmp;
 }
 
+
 int partition_hoare(int arr[], int low, int high){
     int pivot, idx1, idx2;
     
@@ -19,9 +20,9 @@ int partition_hoare(int arr[], int low, int high){
 
     while(true){
         hoare_countCmpOps++; // 비교 연산
-        while(arr[++idx1] < pivot);
+        while(arr[++idx1] < pivot) hoare_countCmpOps++;
         hoare_countCmpOps++; // 비교 연산
-        while(arr[--idx2] > pivot);
+        while(arr[--idx2] > pivot) hoare_countCmpOps++;
 
         if(idx1 < idx2) {
             hoare_countSwaps++; // swap
@@ -38,7 +39,7 @@ int partition_lomuto(int arr[], int low, int high){
     pivot_lower_idx = low;
 
     for(int i=low+1; i<=high; i++){
-        lomuto_countCmpOps++; // 비교 연산
+        lomuto_countCmpOps++;     // 비교 연산
         if(arr[i] < pivot){
             pivot_lower_idx++;
             lomuto_countSwaps++; // swap
@@ -76,27 +77,26 @@ int main(){
     cin.tie(NULL);
     cout.tie(NULL);
 
-    int t, n;
+    int t, n, input;
     cin >> t;
     for(int i=0; i<t; i++){
         cin >> n;
         
-        int arr[n];
+        int arr_hoare[n], arr_lomuto[n];
         hoare_countCmpOps = 0;
         hoare_countSwaps = 0;
         lomuto_countCmpOps = 0;
         lomuto_countSwaps = 0;
 
         for(int j=0; j<n; j++){
-            cin >> arr[j];
+            cin >> input;
+            arr_hoare[j] = input;
+            arr_lomuto[j] = input;
         }
-        quickSort_hoare(arr, 0, n-1);
-        quickSort_lomuto(arr, 0, n-1);
+        quickSort_hoare(arr_hoare, 0, n-1);
+        quickSort_lomuto(arr_lomuto, 0, n-1);
         cout << hoare_countSwaps << " " << lomuto_countSwaps << " " << hoare_countCmpOps << " " << lomuto_countCmpOps << '\n';
 
     }
     return 0;
 }
-
-// 9 4 7 3 9 2 5 8 1 6
-//30 19 14 30 25 13 29 5 20 2 12 18 24 9 21 6 26 16 4 22 1 28 17 10 7 23 15 3 27 11 8
