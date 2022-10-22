@@ -17,20 +17,20 @@ point direction[8] = {
 int check[MAXSIZE][MAXSIZE];
 int path[MAXSIZE][MAXSIZE];
 
-int knightTour(int col, int row, point pos, int count){
-    if(count == col*row) return 1;
+int knightTour(int row, int col, point pos, int count){
+    if(count == row*col) return 1;
 
     point next;
     for(int i=0; i<8; i++){
         next.x = pos.x + direction[i].x;
         next.y = pos.y + direction[i].y;
 
-        if(0<next.x && next.x<=row && 0<next.y && next.y<=col &&check[next.y][next.x] != MARK){
+        if(0<next.x && next.x<=col && 0<next.y && next.y<=row && check[next.y][next.x] != MARK){
             check[next.y][next.x] = MARK;
             path[next.y][next.x] = count+1;
 
-            if(knightTour(col, row, next, count+1)) return 1;
-            // check[next.y][next.x] = UNMARK;
+            if(knightTour(row, col, next, count+1)) return 1;            
+            check[next.y][next.x] = UNMARK;
         }
     }
     return 0;
