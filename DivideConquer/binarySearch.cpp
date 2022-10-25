@@ -21,7 +21,7 @@ int main(){
         for(int j=0; j<n; j++){
             cin >> arr[j];
         }
-        cout << binarySearch(arr, 0, n, K) << '\n';
+        cout << binarySearch(arr, 0, n-1, K) << '\n';
     }
     return 0;
 }

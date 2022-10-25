@@ -16,7 +16,7 @@ int find_mid_max(int arr[], int left, int mid, int right){
         sum += arr[i];
         if(right_sum < sum) right_sum = sum;
     }
-    cout << "mid idx " << left << " " << right << " " << mid << endl; 
+    cout << "mid idx " << left << ":"  << left_sum << " " << right << ":"  << right_sum << " " << mid << endl; 
     
     return left_sum + right_sum;
 }
@@ -57,3 +57,4 @@ int main(){
     return 0;
 }
 
+// 5 -7 2 3 -4 5 2 -7 8 -7
