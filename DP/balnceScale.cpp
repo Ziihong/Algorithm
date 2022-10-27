@@ -10,7 +10,7 @@ int getCount(int gap){
     int weight_arr[] = {1, 2, 5, 10, 20, 50, 100};
     count_dp[0] = 0;
     for(int i=0; i<7; i++){
-        for(int j=weight_arr[i]; j<=gap; j++){
+        for(int j=weight_arr[i]; j<=gap; j++){ // 무게 추 종류별로
             count_dp[j] = min(count_dp[j], count_dp[j-weight_arr[i]]+1);
         }
     }

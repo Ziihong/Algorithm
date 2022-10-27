@@ -16,7 +16,7 @@ int find_mid_max(int arr[], int left, int mid, int right){
         sum += arr[i];
         if(right_sum < sum) right_sum = sum;
     }
-    cout << "mid idx " << left << ":"  << left_sum << " " << right << ":"  << right_sum << " " << mid << endl; 
+    // cout << "mid idx " << left << ":"  << left_sum << " " << right << ":"  << right_sum << " " << mid << endl; 
     
     return left_sum + right_sum;
 }
@@ -30,8 +30,9 @@ int maxSubsequenceSum(int arr[], int left, int right){
     int mid_sum = find_mid_max(arr, left, mid, right);
 
     int max_r = max(left_sum, right_sum);
-
-    cout << left_sum << " " << right_sum << " " << mid_sum << endl;
+    
+    cout << left << " " << right << endl;
+    cout << left_sum << " " << right_sum << " " << mid_sum << endl << endl;
     
     return max(max_r, mid_sum);
 }
