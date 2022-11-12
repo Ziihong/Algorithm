@@ -31,7 +31,7 @@ int lcs(int L[][MAX_SIZE], const char* S, const char* T, int m, int n){
     return L[m][n];   
 }
 
-int lcs_memo(int L[][MAX_SIZE], const char *S, const char* T, int m, int n){
+int lcs_memo(int L[][MAX_SIZE], const char* S, const char* T, int m, int n){
     
     init_L(L);
     return lcs(L, S, T, m, n);
