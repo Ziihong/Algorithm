@@ -2,22 +2,28 @@
 #define MAX_SIZE 101
 using namespace std;
 
-void init_dp(int dp[][MAX_SIZE], int n){
-    for(int i=0; i<MAX_SIZE; i++){
-        for(int j=0; j<MAX_SIZE; j++){
-            if(i == j) dp[i][j] = 0;
-            else dp[i][j] = __INT_MAX__;
-        }
+
+void order(int P[][MAX_SIZE], int i, int j){
+    if(i == j){
+        cout << "M" << i;
+    }
+    else{
+        int k = P[i][j];
+        cout << "(";
+        order(P, i, k);
+        order(P, k+1, j);
+        cout << ")";
     }
 }
 
+
 int cmm(int d[], int n, int P[][MAX_SIZE]){
-    int dp[MAX_SIZE][MAX_SIZE];
-    init_dp(dp, n); // dp 최대값으로 초기화
+    int dp[MAX_SIZE][MAX_SIZE] = {0, };
 
     for(int diagonal=1; diagonal<=n; diagonal++){
         for(int i=1; i<=n; i++){
             int j = diagonal + i;
+            dp[i][j] = __INT_MAX__; // 최대값으로 초기화
             for(int k=i; k<j; k++){
                 int cnt = dp[i][k]+dp[k+1][j] + d[i-1]*d[k]*d[j];
                 if(dp[i][j] > cnt){
@@ -28,27 +34,20 @@ int cmm(int d[], int n, int P[][MAX_SIZE]){
         }
     }
 
-
-    for(int i=0; i<n+1; i++){
-        for(int j=0; j<n+1; j++){
-            cout << dp[i][j] << " ";
-        }
-        cout << endl;
-    }
-
-    for(int i=0; i<n+1; i++){
-        for(int j=0; j<n+1; j++){
-            cout << P[i][j] << " ";
-        }
-        cout << endl;
-    }
+    order(P, 1, n);
+    cout << '\n';
 
     return dp[1][n];
 }
 
-void printMatrix(){}
+
 
 int main(){
+
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+
     int t, n;
     cin >> t;
     
@@ -60,6 +59,6 @@ int main(){
             cin >> d[j];
         }
 
-        cout << cmm(d, n, P) << endl;
+        cout << cmm(d, n, P) << '\n';
     }
 }
