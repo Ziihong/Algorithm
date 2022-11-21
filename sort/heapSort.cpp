@@ -21,15 +21,17 @@ int get_larger_child_idx(int i, int size){
     int left_child = arr[i*2];
     int right_child = arr[i*2+1];
 
-    if(left_child != 0 && i*2 <=size) cnt++;
-    if(right_child != 0 && i*2+1 <=size) cnt++;
-    
-    if(left_child < right_child){
-        return 2*i+1;
+    int larger_idx;
+    if(right_child != 0 && i*2+1 <=size){
+        if(left_child > right_child) larger_idx = i*2;
+        else larger_idx = i*2+1;
+        cnt += 2;
     }
     else{
-        return 2*i;
+        larger_idx = i*2;
+        cnt++;
     }
+    return larger_idx;
 }
 
 void fixHeap(int parent, int K, int size){
