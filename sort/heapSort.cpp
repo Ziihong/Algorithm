@@ -48,11 +48,11 @@ void fixHeap(int parent, int K, int size){
 
 void heapSort(int n){
     
-    for(int i=n/2; i>0; i—){
+    for(int i=n/2; i>0; i--){
         fixHeap(i, arr[i], n);
     }   
     
-    for(int heapsize=n; heapsize>=2; heapsize—){
+    for(int heapsize=n; heapsize>=2; heapsize--){
         int max = arr[1];
         fixHeap(1, arr[heapsize], heapsize-1);
         arr[heapsize] = max;
