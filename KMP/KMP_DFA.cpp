@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstring>
 #define MAXSIZE 1005
 #define CHAR_MAXSIZE 3
 
@@ -14,14 +15,13 @@ void init_DFA_Table(){
     }
 }
 
-void constructDFA(string pattern, string text){
+void constructDFA(string pattern){
     int pattern_len = pattern.length();
-    int text_len = text.length();
 
     DFA_Table[pattern.at(0)-'A'][0] = 1;
 
     int X = 0;
-    for(int j=1; j<text_len; j++){
+    for(int j=1; j<pattern_len+1; j++){
         for(int c=0; c<3; c++){
             DFA_Table[c][j] = DFA_Table[c][X];      // mismatch case
         }
@@ -35,6 +35,7 @@ void constructDFA(string pattern, string text){
 int DFA(string pattern, string text){
     int pattern_len = pattern.length();
     int text_len = text.length();
+
     int i, j;
     for(i=0, j=0; i<text_len && j<pattern_len; i++){
         j = DFA_Table[text.at(i)-'A'][j];
@@ -43,11 +44,13 @@ int DFA(string pattern, string text){
     else return -1;
 }
 
-int getNotZeroTransferCnt(int pattern_len){
+int getNotZeroTransferCnt(int text_len){
     int not_zero_transfer_cnt = 0;
     for(int i=0; i<CHAR_MAXSIZE; i++){
-        for(int j=0; j<pattern_len+1; j++){
-            if(DFA_Table[i][j] != 0) not_zero_transfer_cnt++;
+        for(int j=0; j<text_len+1; j++){
+            if(DFA_Table[i][j] != 0) {
+                not_zero_transfer_cnt++;
+            }
         }
     }
     return not_zero_transfer_cnt;
@@ -62,9 +65,10 @@ int main(){
         cin >> pattern >> text;
         
         int matched_cnt = 0;
+        int text_len = text.length();
 
         init_DFA_Table();
-        constructDFA(pattern, text);
+        constructDFA(pattern);
         int matched_idx = DFA(pattern, text);
 
         while(matched_idx != -1){
@@ -74,7 +78,7 @@ int main(){
                 matched_idx = DFA(pattern, text);
             }
         }
-        cout << getNotZeroTransferCnt(pattern.length()) << " " << matched_cnt << '\n';
+        cout << getNotZeroTransferCnt(text_len) << " " << matched_cnt << '\n';
     }    
     return 0;
 }
