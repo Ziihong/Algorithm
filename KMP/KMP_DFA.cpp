@@ -53,15 +53,6 @@ int getNotZeroTransferCnt(int pattern_len){
     return not_zero_transfer_cnt;
 }
 
-int getMatchedCnt(int pattern_len, int text_len){
-    int matched_cnt = 0;
-    for(int i=0; i<CHAR_MAXSIZE; i++){
-        for(int j=0; j<text_len; j++){
-            if(DFA_Table[i][j] == pattern_len) matched_cnt++;
-        }
-    }
-    return matched_cnt;
-}
 
 int main(){
     int t;
@@ -71,10 +62,18 @@ int main(){
         cin >> pattern >> text;
         
         int matched_cnt = 0;
+
         init_DFA_Table();
-        
         constructDFA(pattern, text);
-        if(DFA(pattern, text) != -1) matched_cnt = getMatchedCnt(pattern.length(), text.length());
+        int matched_idx = DFA(pattern, text);
+
+        while(matched_idx != -1){
+            if(matched_idx != -1) {
+                matched_cnt++;
+                text = text.substr(matched_idx+1);
+                matched_idx = DFA(pattern, text);
+            }
+        }
         cout << getNotZeroTransferCnt(pattern.length()) << " " << matched_cnt << '\n';
     }    
     return 0;
